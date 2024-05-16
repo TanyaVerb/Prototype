@@ -174,3 +174,156 @@ console.log(objF21.getName(), objF21.getAge()); //Fill 28
 Для реализации правильного прототипного наследования, необходимо:
 - либо создать объект-прослойку между прототипами
 - либо использовать Object.create()  */
+
+const dog = {
+  name: "Dora",
+  sayGav(){
+    console.log(`${this.name} говорит Gav`); 
+  },
+  meet(){
+    console.log("Меня зовут: я Dog" ); 
+  },
+   temp: 123,
+  obj: {
+    age: "23"
+  }
+}
+
+const cat = {
+  name: "Tosay",
+  sayMay(){
+    console.log(`${this.name} говорит May`); 
+  },
+  meet(){
+    console.log("Привет" ); 
+  }, 
+  temp2: dog.temp
+}
+
+
+
+
+
+
+console.log(cat.temp2);//123
+dog.temp = 150
+console.log(cat.temp2);//123
+console.log(dog.temp);//150
+
+
+console.log(dog.obj.age);//23
+dog.obj.city = 'Vit'
+console.log(dog.obj.city);//Vit
+cat.obj = dog.obj
+// dog.obj.age = null
+
+
+
+
+function Pet(name){
+this.name = name
+// this.meet =function(){
+//   console.log(`Привет ${this.name}`);
+// }
+
+
+this.setName(name)
+// this.meeErrort= function(){
+//   console.log(`Привет ${this.name}`);
+// }
+
+}
+
+Pet.prototype.meet = function(){ // привязывает контекст там где она была создана
+  
+  console.log(`Привет ${this.name}`);
+}
+
+Pet.prototype.setName = function(name){
+  this.name = name
+};
+Pet.prototype.getName = function(name){
+  return name = name
+};
+
+function Cat (name){
+ 
+  Cat.prototype.sayMay= function(){
+    console.log(`${this.name} говорит May`); 
+  }
+}
+
+Cat.prototype = Pet.prototype
+Dog.prototype.constructor =Cat
+
+Dog.prototype = Pet.prototype
+
+Dog.prototype = Object.create(Pet.prototype)
+Dog.prototype.constructor = Dog
+
+function Dog (){
+  Dog.prototype.sayGav= function(){
+    console.log(`${this.name} говорит Gav`); 
+  }
+  
+  Dog.prototype.meet= function(){
+    Pet.prototype.meet.call(this)
+    console.log(`New MEEt`); 
+  }
+
+}
+
+
+// const dog2 = new Dog("Dora")
+console.log(dog2.getName()); 
+const cat2 = new Cat("Tosya")
+cat2.meet()
+cat2.setName
+
+console.log(cat2.setName("Tocz") );
+console.log(dog2);
+console.log(cat2);
+
+
+const dog2 = new Dog()
+dog2.meet()
+dog2.meeError()
+
+// function foo (cd){
+//   cd()
+// }
+
+// foo(dog2.meet)
+// foo(dog2.meeErrort)//undefined
+
+/**
+ * Pet{
+ * prototype:{
+ * constructor:Pet,
+ * meet(){}
+ * }
+ * }
+ * 
+ * cat2{
+ * __proto__
+ * }
+ */
+
+
+
+// cat2 = {
+//   __proto__:Pet.prototype
+// }
+
+//*********************************************** */
+
+// function Car (selector1, selector2){
+//   this.input = document.querySelector(selector1)
+//   this.btn = document.querySelector(selector2)
+// }
+
+// const cards= [
+//   new Card ('.input1', 'btn1'),
+//   new Card ('.input2', 'btn2'),
+//   new Card ('.input3', 'btn3')
+// ] 
