@@ -174,3 +174,50 @@ console.log(objF21.getName(), objF21.getAge()); //Fill 28
 Для реализации правильного прототипного наследования, необходимо:
 - либо создать объект-прослойку между прототипами
 - либо использовать Object.create()  */
+
+let dimych = { name: "Dimych" };
+
+console.log(dimych.toString());
+console.log(dimych);
+
+function Samurai(name) {
+  this.name = name;
+}
+Samurai.prototype.hello = function (name) {
+  console.log(`Hello, ${this.name}`);
+};
+
+let shogun = new Samurai("Dima");
+shogun.hello();
+console.log(shogun);
+let shogun2 = new Samurai("Dasha");
+shogun2.hello();
+console.log(shogun2);
+
+//1
+console.log({}.prototype === {}.__proto__); //false
+//2
+function ITKamasutra() {}
+console.log(ITKamasutra.__proto__ === ITKamasutra.prototype); //false (ITKamasutra.prototype !=function.prototype)
+//3
+//4
+function ITIncubator() {}
+function ITKamasutra() {}
+console.log(ITIncubator.__proto__ === ITKamasutra.__proto__); //true;
+console.log(ITIncubator.prototype === ITKamasutra.prototype); //false
+
+class Samurai2 {
+  constructor(name) {
+    this.name = name;
+  }
+  hello() {
+    console.log(this.name);
+  }
+}
+
+let shogun3 = new Samurai2("Lilu");
+
+console.log(shogun3.__proto__.__proto__); //hasOwnProperty,toString,get __proto_,set __proto__ и др.свойства
+console.log(shogun3.__proto__.__proto__.__proto__); //null
+console.log(shogun3.__proto__);
+console.log(shogun3.__proto__.constructor.__proto__); //ƒ () { [native code] }
